@@ -1,0 +1,43 @@
+/*
+Travis Pechota
+Project 3
+VFW 1304
+*/
+
+body {
+	background: #97FFAA;
+	width: 360px;
+	margin: 20px auto;
+	font-family: Helvetica;
+	line-height: 1.5em;
+}
+
+h1{
+	border-bottom: 3px solid #B2465A;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+}
+
+h2{
+	font-style: italic;
+	margin-top: 15px;
+	color: green;
+}
+
+p{
+	font-family: Helvetica;
+	font-size: 18px;
+	color: black;
+}
+
+textarea{
+	width: 250px; height: 150px; border: 1px solid black;
+}
+
+
+
+/* links */
+a:link{color: blue;}
+a:visited{color: #B2465A;}
+a:hover{color: #58B268;}
+a:active{color: black;}
