@@ -217,25 +217,25 @@ window.addEventListener("DOMContentLoaded", function(){
 		//populate the form fields with current localStorage values.
 		$("sizes").value = item.pizzasize[1];
 		$("styles").value = item.pizzastyle[1];
-		if(item.pepperoni[1] === "Yes"){
+		if(item.pepperoni[1] == "Yes"){
 			$("pepperoni").setAttribute("checked", "checked");
 		}
-		if(item.sausage[1] === "Yes"){
+		if(item.sausage[1] == "Yes"){
 			$("sausage").setAttribute("checked", "checked");
 		}
-		if(item.ham[1] === "Yes"){
+		if(item.ham[1] == "Yes"){
 			$("ham").setAttribute("checked", "checked");
 		}
-		if(item.gp[1] === "Yes"){
+		if(item.gp[1] == "Yes"){
 			$("greenpeppers").setAttribute("checked", "checked");
 		}
-		if(item.bp[1] === "Yes"){
+		if(item.bp[1] == "Yes"){
 			$("bananapeppers").setAttribute("checked", "checked");
 		}
-		if(item.bacon[1] === "Yes"){
+		if(item.bacon[1] == "Yes"){
 			$("bacon").setAttribute("checked", "checked");
 		}
-		if(item.fc[1] === "Yes"){
+		if(item.fc[1] == "Yes"){
 			$("fetacheese").setAttribute("checked", "checked");
 		}
 		$("sauce").value = item.sauce[1];
