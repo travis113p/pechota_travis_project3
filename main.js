@@ -47,49 +47,49 @@ window.addEventListener("DOMContentLoaded", function(){
 	//checkbox values
 	function getPepperoniValue(){
 		if($("pepperoni").checked){
-			pepperoniValue = ("pepperoni").value;
+			pepperoniValue = "Yes";
 		}else{
 			pepperoniValue = "No";
 		};
 	};
 	function getSausageValue(){
 		if($("sausage").checked){
-			sausageValue = ("sausage").value;
+			sausageValue = "Yes";
 		}else{
 			sausageValue = "No";
 		};
 	};
 	function getHamValue(){
 		if($("ham").checked){
-			hamValue = ("ham").value;
+			hamValue = "Yes";
 		}else{
 			hamValue = "No";
 		};
 	};
 	function getGPValue(){
 		if($("greenpeppers").checked){
-			gpValue = ("greenpeppers").value;
+			gpValue = "Yes";
 		}else{
 			gpValue = "No";
 		};
 	};
 	function getBPValue(){
 		if($("bananapeppers").checked){
-			bpValue = ("bananapeppers").value;
+			bpValue = "Yes";
 		}else{
 			bpValue = "No";
 		};
 	};
 	function getBaconValue(){
 		if($("bacon").checked){
-			baconValue = ("bacon").value;
+			baconValue = "Yes";
 		}else{
 			baconValue = "No";
 		};
 	};
 	function getFCValue(){
 		if($("fetacheese").checked){
-			fcValue = ("fetacheese").value;
+			fcValue = "Yes";
 		}else{
 			fcValue = "No";
 		};
