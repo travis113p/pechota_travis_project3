@@ -117,8 +117,12 @@ window.addEventListener("DOMContentLoaded", function(){
 	};
 
 	//store data
-	function storeData(){
-		var id 				= Math.floor(Math.random()*100000001);
+	function storeData(key){
+		if(!key){
+			var id 				= Math.floor(Math.random()*100000001);
+		}else{
+			id = key;
+		}
 		getPepperoniValue();
 		getSausageValue();
 		getHamValue();
@@ -128,6 +132,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		getFCValue();
 		var item 			= {};
 			item.pizzasize  = ["Size: ", $("sizes").value];
+			item.pizzastyle = ["Style: ", $("styles").value]
 			item.pepperoni	= ["Pepperoni: ", pepperoniValue];
 			item.sausage	= ["Sausage: ", sausageValue];
 			item.ham		= ["Ham: ", hamValue];
@@ -170,6 +175,7 @@ window.addEventListener("DOMContentLoaded", function(){
 				makeSubli.innerHTML = optSubText;
 				makeSubli.appendChild(linksLi);
 			};
+			makeItemLinks(localStorage.key(i), linksLi);
 		};
 	};
 
@@ -209,8 +215,8 @@ window.addEventListener("DOMContentLoaded", function(){
 		toggleControls("off"); 
 
 		//populate the form fields with current localStorage values.
-		$("size").value = item.group[1];
-		$("style").value = item.fname[1];
+		$("sizes").value = item.pizzasize[1];
+		$("styles").value = item.pizzastyle[1];
 		if(item.pepperoni[1] == "Yes"){
 			$("pepperoni").setAttribute("checked", "checked");
 		}
@@ -260,8 +266,6 @@ window.addEventListener("DOMContentLoaded", function(){
 	}
 
 
-
-
 	//clear local storage
 	function clearLocal(){
 		if(localStorage.length === 0){
@@ -274,8 +278,53 @@ window.addEventListener("DOMContentLoaded", function(){
 		};
 	};
 
+	//set up validate function
+	function validate(e){
+	//define the elements we want to check		
+	var getSize = $("size");
+	var getStyle = $("style");
+	
+		//reset error messages
+		errMsg.innerHTML = "";
+			//reset borders
+			getSize.style.border = "1px solid black";
+			getStyle.style.border = "1px solid black";
+
+		//get error messages
+		var messageAry = [];
+		//group validation
+		if(getSize.value === "--Choose A Size--"){
+			var sizeError = "Please select a pizza size.";
+			getSize.style.border = "1px solid red";
+			messageAry.push(sizeError);
+		}
+
+		if(getStyle.value === "--Choose A Style--"){
+			var styleError = "Please select a pizza style.";
+			getStyle.style.border = "1px solid red";
+			messageAry.push(styleError);
+		}
+
+		//if there were errors, display them on the screen.
+		if(messageAry.length >= 1){
+			for(var i =0, j=messageAry.length; i < j; i++){
+				var txt = document.createElement("li");
+				txt.innerHTML = messageAry[i];
+				errMsg.appendChild(txt);
+			}
+			e.preventDefault();
+			return false;
+		}else{
+			//if all is okay, save our data.  send the key value (which came from the editData function).
+			//remember this key value was passed through the editSubmit event listener as a property.
+			storeData(this.key);
+		}
+	}
+
+
+
 	//variable defaults
-	var pizzaSizes = ["--Choose A Size--", "Small ($5.00)", "Medium ($7.50)", "Large ($10.00"],
+	var pizzaSizes = ["--Choose A Size--", "Small ($5.00)", "Medium ($7.50)", "Large ($10.00)"],
 		pizzaStyles = ["--Choose A Style--", "Deep Dish", "Classic", "Thin Crust"],
 		pepperoniValue = "No",
 		sausageValue = "No",
@@ -283,7 +332,8 @@ window.addEventListener("DOMContentLoaded", function(){
 		gpValue = "No",
 		bpValue = "No",
 		baconValue = "No",
-		fcValue = "No"
+		fcValue = "No",
+		errMsg = $("errors")
 	;
 	pizzaSize();
 	pizzaStyle();
@@ -294,6 +344,6 @@ window.addEventListener("DOMContentLoaded", function(){
 	var clearLink = $("clear");
 	clearLink.addEventListener("click", clearLocal);
 	var save = $("submit");
-	save.addEventListener("click", storeData);
+	save.addEventListener("click", validate);
 
 });
