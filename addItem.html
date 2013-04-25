@@ -28,18 +28,20 @@ VFW 1304
 		<form action="#" method="post" id="customPizza" />
 			<fieldset id="customFieldset">
 				<legend>Create Your Creation: </legend>
+				<span>* fields are required.</span>
+				<ul id="errors"></ul>
 				<ul id="options">
-					<li id="size"><label for="size">Choose Pizza Size: </label><br /></li>
-					<li id="style"><label for="style">Choose Pizza Style: </label><br /></li>
+					<li id="size"><label for="size">* Choose Pizza Size: </label><br /></li>
+					<li id="style"><label for="style">* Choose Pizza Style: </label><br /></li>
 					<li><label for="toppings">Choose Your Toppings (Pick up to 3, $0.50 for each extra selection): </label>
 						<ul>
 							<li><input type="checkbox" id="pepperoni" value="Pepperoni" call="checkbox" /><label for="pepperoni">Pepperoni</label></li>
 							<li><input type="checkbox" id="sausage" value="Sausage" call="checkbox" /><label for="sausage">Sausage</label></li>
 							<li><input type="checkbox" id="ham" value="Ham" call="checkbox" /><label for="ham">Ham</label></li>
-							<li><input type="checkbox" id="green peppers" value="Green Peppers" call="checkbox" /><label for="green peppers">Green Peppers</label></li>
-							<li><input type="checkbox" id="banana peppers" value="Banana Peppers" call="checkbox" /><label for="banana peppers">Banana Peppers</label></li>
+							<li><input type="checkbox" id="greenpeppers" value="Green Peppers" call="checkbox" /><label for="green peppers">Green Peppers</label></li>
+							<li><input type="checkbox" id="bananapeppers" value="Banana Peppers" call="checkbox" /><label for="banana peppers">Banana Peppers</label></li>
 							<li><input type="checkbox" id="bacon" value="Bacon" call="checkbox" /><label for="bacon">Bacon</label></li>
-							<li><input type="checkbox" id="feta cheese" value="Feta Cheese" call="checkbox" /><label for="feta cheese">Feta Cheese</label></li>
+							<li><input type="checkbox" id="fetacheese" value="Feta Cheese" call="checkbox" /><label for="feta cheese">Feta Cheese</label></li>
 						</ul>
 					</li>
 					<li><label for="sauce">Select Sauce Amount (Left, None; Right, Extra): </label><input type="range" min="0" max="10" id="sauce" /></li>

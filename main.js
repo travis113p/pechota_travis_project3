@@ -67,15 +67,15 @@ window.addEventListener("DOMContentLoaded", function(){
 		};
 	};
 	function getGPValue(){
-		if($("green peppers").checked){
-			gpValue = ("green peppers").value;
+		if($("greenpeppers").checked){
+			gpValue = ("greenpeppers").value;
 		}else{
 			gpValue = "No";
 		};
 	};
 	function getBPValue(){
-		if($("banana peppers").checked){
-			bpValue = ("banana peppers").value;
+		if($("bananapeppers").checked){
+			bpValue = ("bananapeppers").value;
 		}else{
 			bpValue = "No";
 		};
@@ -88,8 +88,8 @@ window.addEventListener("DOMContentLoaded", function(){
 		};
 	};
 	function getFCValue(){
-		if($("feta cheese").checked){
-			fcValue = ("feta cheese").value;
+		if($("fetacheese").checked){
+			fcValue = ("fetacheese").value;
 		}else{
 			fcValue = "No";
 		};
@@ -156,6 +156,7 @@ window.addEventListener("DOMContentLoaded", function(){
 		$("items").style.display = "block";
 		for(var i=0, len=localStorage.length; i<len; i++){
 			var makeli = document.createElement("li");
+			var linksLi = document.createElement("li");
 			makeList.appendChild(makeli);
 			var key = localStorage.key(i);
 			var value = localStorage.getItem(key);
@@ -167,9 +168,99 @@ window.addEventListener("DOMContentLoaded", function(){
 				makeSubList.appendChild(makeSubli);
 				var optSubText = obj[n][0]+" "+obj[n][1];
 				makeSubli.innerHTML = optSubText;
+				makeSubli.appendChild(linksLi);
 			};
 		};
 	};
+
+	//make item links
+	//create the edit and delete links for eachstored item when displayed
+	function makeItemLinks(key, linksLi){ //using var key from above
+		//add edit single item link
+		var editLink = document.createElement("a");
+		editLink.href = "#";
+		editLink.key = key;
+		var editText = "Edit Pizza";
+		editLink.addEventListener("click", editItem); //creates editItem fxn
+		editLink.innerHTML = editText;
+		linksLi.appendChild(editLink);
+
+		//add line break
+		var breakTag = document.createElement("br");
+		linksLi.appendChild(breakTag);
+
+		//add delete single item link
+		var deleteLink = document.createElement("a");
+		deleteLink.href = "#";
+		deleteLink.key = key;
+		var deleteText = "Delete Pizza";
+		deleteLink.addEventListener("click", deleteItem); //create deleteItem fxn
+		deleteLink.innerHTML = deleteText;
+		linksLi.appendChild(deleteLink);
+	}
+
+	//create editItem function (from above)
+	function editItem(){
+		//grab the data from our item from Local storage
+		var value = localStorage.getItem(this.key); //this.key grabs value of item in local storage.
+		var item = JSON.parse(value)
+
+		//hides displayed items and shows form
+		toggleControls("off"); 
+
+		//populate the form fields with current localStorage values.
+		$("size").value = item.group[1];
+		$("style").value = item.fname[1];
+		if(item.pepperoni[1] == "Yes"){
+			$("pepperoni").setAttribute("checked", "checked");
+		}
+		if(item.sausage[1] == "Yes"){
+			$("sausage").setAttribute("checked", "checked");
+		}
+		if(item.ham[1] == "Yes"){
+			$("ham").setAttribute("checked", "checked");
+		}
+		if(item.gp[1] == "Yes"){
+			$("greenpeppers").setAttribute("checked", "checked");
+		}
+		if(item.bp[1] == "Yes"){
+			$("bananapeppers").setAttribute("checked", "checked");
+		}
+		if(item.bacon[1] == "Yes"){
+			$("bacon").setAttribute("checked", "checked");
+		}
+		if(item.fc[1] == "Yes"){
+			$("fetacheese").setAttribute("checked", "checked");
+		}
+		$("sauce").value = item.sauce[1];
+		$("date").value = item.date[1];
+		$("comments").value = item.comments[1];
+
+		//remove the initial listener from the input "save contact" button
+		save.removeEventListener("click", storeData);
+		//change submit button value to edit button
+		$("submit").value = "Edit Pizza";
+		var editSubmit = $("submit");
+		//save the key value established in this function as a property of the editSubmit event
+		//so we can use that value when we save the data we edited.
+		editSubmit.addEventListener("click", validate);
+		editSubmit.key = this.key;
+	}
+
+	//creating deleteItem function
+	function deleteItem(){
+		var ask = confirm("Are you sure you want to delete this pizza?");
+		if(ask){
+			localStorage.removeItem(this.key);
+			alert("A pizza was removed from your order!");
+			window.location.reload();
+		}else{
+			alert("Pizza was not deleted.");
+		}
+	}
+
+
+
 
 	//clear local storage
 	function clearLocal(){
