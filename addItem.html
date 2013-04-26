@@ -2,20 +2,21 @@
 Travis Pechota
 Project 3
 VFW 1304
+addItem.html
 -->
 
 <html>
 	<head>
 		<meta charset="utf-8"/>
 		<meta name="description" content="VFW Project 1, First Web App, Pizza Ordering" />
-		<meta name="keywords" content="html 5, add item, VFW, pizza, order" />
+		<meta name="keywords" content="html 5, addItem, VFW, pizza, order" />
 		<meta name="robots" content="index, follow" />
 		<title>Order Your Pizza!</title>
 		<link href="styles.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
 		<header>
-			<h1 id="create">Customize It! </h1>
+			<h1 id="create">Customize Your Pizza! </h1>
 		</header>
 		<nav>
 			<a href="#" id="clear">Clear Order</a>
@@ -25,7 +26,7 @@ VFW 1304
 		<br>
 		<form action="#" method="post" id="customPizza" />
 			<fieldset id="customFieldset">
-				<legend>Create Your Creation: </legend>
+				<legend>Create Your Pizza: </legend>
 				<span>* fields are required.</span>
 				<ul id="errors"></ul>
 				<ul id="options">
@@ -42,7 +43,7 @@ VFW 1304
 							<li><input type="checkbox" id="fetacheese" value="Feta Cheese" call="checkbox" /><label for="feta cheese">Feta Cheese</label></li>
 						</ul>
 					</li>
-					<li><label for="sauce">Select Sauce Amount (Left, None; Right, Extra): </label><input type="range" min="0" max="10" id="sauce" /></li>
+					<li><label for="sauce">Select Sauce Amount (Left: None; Right: Extra): </label><input type="range" min="0" max="10" id="sauce" /></li>
 					<li><label for="date">Delivery Date: </label><input type="date" id="date" /></li>
 					<li><label for ="comments">Additional Comments: </label><textarea id="comments"></textarea></li>
 				</ul>

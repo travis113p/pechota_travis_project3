@@ -2,6 +2,7 @@
 Travis Pechota
 Project 3
 VFW 1304
+main.js
 */
 
 window.addEventListener("DOMContentLoaded", function(){
@@ -122,7 +123,7 @@ window.addEventListener("DOMContentLoaded", function(){
 			var id 				= Math.floor(Math.random()*100000001);
 		}else{
 			id = key;
-		}
+		};
 		getPepperoniValue();
 		getSausageValue();
 		getHamValue();
@@ -151,7 +152,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	function getData(){
 		toggleControls("on");
 		if(localStorage.length === 0){
-			alert("There is no data in local storage.");
+			alert("There is nothing in your current order.");
 		};
 		var makeDiv = document.createElement("div");
 		makeDiv.setAttribute("id", "items");
@@ -179,81 +180,77 @@ window.addEventListener("DOMContentLoaded", function(){
 		};
 	};
 
-	//make item links
-	//create the edit and delete links for eachstored item when displayed
-	function makeItemLinks(key, linksLi){ //using var key from above
-		//add edit single item link
+	//edit and delete item links
+	function makeItemLinks(key, linksLi){ 
+
+		//edit item link
 		var editLink = document.createElement("a");
 		editLink.href = "#";
 		editLink.key = key;
 		var editText = "Edit Pizza";
-		editLink.addEventListener("click", editItem); //creates editItem fxn
+		editLink.addEventListener("click", editItem); //editItem fxn
 		editLink.innerHTML = editText;
 		linksLi.appendChild(editLink);
 
-		//add line break
 		var breakTag = document.createElement("br");
 		linksLi.appendChild(breakTag);
 
-		//add delete single item link
+		//delete item link
 		var deleteLink = document.createElement("a");
 		deleteLink.href = "#";
 		deleteLink.key = key;
 		var deleteText = "Delete Pizza";
-		deleteLink.addEventListener("click", deleteItem); //create deleteItem fxn
+		deleteLink.addEventListener("click", deleteItem); //deleteItem fxn
 		deleteLink.innerHTML = deleteText;
 		linksLi.appendChild(deleteLink);
-	}
+	};
 
-	//create editItem function (from above)
+	//create editItem fxn (from above)
 	function editItem(){
-		//grab the data from our item from Local storage
-		var value = localStorage.getItem(this.key); //this.key grabs value of item in local storage.
+		var value = localStorage.getItem(this.key);
 		var item = JSON.parse(value)
 
-		//hides displayed items and shows form
 		toggleControls("off"); 
 
-		//populate the form fields with current localStorage values.
+		//populate form field
 		$("sizes").value = item.pizzasize[1];
 		$("styles").value = item.pizzastyle[1];
 		if(item.pepperoni[1] == "Yes"){
 			$("pepperoni").setAttribute("checked", "checked");
-		}
+		};
 		if(item.sausage[1] == "Yes"){
 			$("sausage").setAttribute("checked", "checked");
-		}
+		};
 		if(item.ham[1] == "Yes"){
 			$("ham").setAttribute("checked", "checked");
-		}
+		};
 		if(item.gp[1] == "Yes"){
 			$("greenpeppers").setAttribute("checked", "checked");
-		}
+		};
 		if(item.bp[1] == "Yes"){
 			$("bananapeppers").setAttribute("checked", "checked");
-		}
+		};
 		if(item.bacon[1] == "Yes"){
 			$("bacon").setAttribute("checked", "checked");
-		}
+		};
 		if(item.fc[1] == "Yes"){
 			$("fetacheese").setAttribute("checked", "checked");
-		}
+		};
 		$("sauce").value = item.sauce[1];
 		$("date").value = item.date[1];
 		$("comments").value = item.comments[1];
 
-		//remove the initial listener from the input "save contact" button
+		//remove event listener on click
 		save.removeEventListener("click", storeData);
-		//change submit button value to edit button
+
+		//change submit to edit
 		$("submit").value = "Edit Pizza";
 		var editSubmit = $("submit");
-		//save the key value established in this function as a property of the editSubmit event
-		//so we can use that value when we save the data we edited.
-		editSubmit.addEventListener("click", validate);
+		editSubmit.addEventListener("click", validate); //runs validate fxn
 		editSubmit.key = this.key;
-	}
+	};
 
-	//creating deleteItem function
+	//create deleteItem fxn (from above)
 	function deleteItem(){
 		var ask = confirm("Are you sure you want to delete this pizza?");
 		if(ask){
@@ -262,8 +259,8 @@ window.addEventListener("DOMContentLoaded", function(){
 			window.location.reload();
 		}else{
 			alert("Pizza was not deleted.");
-		}
-	}
+		};
+	};
 
 
 	//clear local storage
@@ -278,50 +275,45 @@ window.addEventListener("DOMContentLoaded", function(){
 		};
 	};
 
-	//set up validate function
+	//create validate fxn (from above)
 	function validate(e){
-	//define the elements we want to check		
-	var getSize = $("sizes");
-	var getStyle = $("styles");
 	
-		//reset error messages
-		errMsg.innerHTML = "";
-			//reset borders
-			getSize.style.border = "1px solid black";
-			getStyle.style.border = "1px solid black";
+		//elements to validate		
+		var getSize = $("sizes");
+		var getStyle = $("styles");
+		
+			//reset error messages
+			errMsg.innerHTML = "";
+				getSize.style.border = "1px solid black";
+				getStyle.style.border = "1px solid black";
 
-		//get error messages
-		var messageAry = [];
-		//group validation
-		if(getSize.value === "--Choose A Size--"){
-			var sizeError = "Please select a pizza size.";
-			getSize.style.border = "1px solid red";
-			messageAry.push(sizeError);
-		}
+			//get error messages
+			var messageAry = [];
+			if(getSize.value === "--Choose A Size--"){
+				var sizeError = "Please select a pizza size.";
+				getSize.style.border = "1px solid red";
+				messageAry.push(sizeError);
+			};
+			if(getStyle.value === "--Choose A Style--"){
+				var styleError = "Please select a pizza style.";
+				getStyle.style.border = "1px solid red";
+				messageAry.push(styleError);
+			};
 
-		if(getStyle.value === "--Choose A Style--"){
-			var styleError = "Please select a pizza style.";
-			getStyle.style.border = "1px solid red";
-			messageAry.push(styleError);
-		}
-
-		//if there were errors, display them on the screen.
-		if(messageAry.length >= 1){
-			for(var i =0, j=messageAry.length; i < j; i++){
-				var txt = document.createElement("li");
-				txt.innerHTML = messageAry[i];
-				errMsg.appendChild(txt);
-			}
-			e.preventDefault();
-			return false;
-		}else{
-			//if all is okay, save our data.  send the key value (which came from the editData function).
-			//remember this key value was passed through the editSubmit event listener as a property.
-			storeData(this.key);
-		}
-	}
-
-
+			//display errors
+			if(messageAry.length >= 1){
+				for(var i =0, j=messageAry.length; i < j; i++){
+					var txt = document.createElement("li");
+					txt.innerHTML = messageAry[i];
+					errMsg.appendChild(txt);
+				}
+				e.preventDefault();
+				return false;
+			}else{
+				//store data
+				storeData(this.key);
+			};
+	};
 
 	//variable defaults
 	var pizzaSizes = ["--Choose A Size--", "Small ($5.00)", "Medium ($7.50)", "Large ($10.00)"],
